@@ -13,6 +13,7 @@
 		51CDA50D244D902500A0EE2B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51CDA50B244D902500A0EE2B /* Main.storyboard */; };
 		51CDA50F244D902800A0EE2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51CDA50E244D902800A0EE2B /* Assets.xcassets */; };
 		51CDA512244D902800A0EE2B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51CDA510244D902800A0EE2B /* LaunchScreen.storyboard */; };
+		51CDA51E244D94FA00A0EE2B /* KeiserM3iParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CDA51D244D94FA00A0EE2B /* KeiserM3iParser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		51CDA50E244D902800A0EE2B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		51CDA511244D902800A0EE2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		51CDA513244D902800A0EE2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		51CDA51D244D94FA00A0EE2B /* KeiserM3iParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeiserM3iParser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +58,32 @@
 		51CDA504244D902500A0EE2B /* Bicicleteando */ = {
 			isa = PBXGroup;
 			children = (
+				51CDA51C244D94E400A0EE2B /* Controller */,
+				51CDA519244D91AF00A0EE2B /* Models */,
 				51CDA505244D902500A0EE2B /* AppDelegate.swift */,
 				51CDA507244D902500A0EE2B /* SceneDelegate.swift */,
-				51CDA509244D902500A0EE2B /* ViewController.swift */,
 				51CDA50B244D902500A0EE2B /* Main.storyboard */,
 				51CDA50E244D902800A0EE2B /* Assets.xcassets */,
 				51CDA510244D902800A0EE2B /* LaunchScreen.storyboard */,
 				51CDA513244D902800A0EE2B /* Info.plist */,
 			);
 			path = Bicicleteando;
+			sourceTree = "<group>";
+		};
+		51CDA519244D91AF00A0EE2B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				51CDA51D244D94FA00A0EE2B /* KeiserM3iParser.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		51CDA51C244D94E400A0EE2B /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				51CDA509244D902500A0EE2B /* ViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,6 +160,7 @@
 				51CDA50A244D902500A0EE2B /* ViewController.swift in Sources */,
 				51CDA506244D902500A0EE2B /* AppDelegate.swift in Sources */,
 				51CDA508244D902500A0EE2B /* SceneDelegate.swift in Sources */,
+				51CDA51E244D94FA00A0EE2B /* KeiserM3iParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,7 +236,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -270,7 +290,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
