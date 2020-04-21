@@ -21,6 +21,10 @@
 import UIKit
 import CoreBluetooth
 
+//----------------------------------------------------------------------------
+// MARK -- View controller
+//----------------------------------------------------------------------------
+
 class ViewController: UIViewController {
 
     // Outlets
@@ -29,33 +33,60 @@ class ViewController: UIViewController {
     @IBOutlet weak var heartRate: UILabel!
     @IBOutlet weak var power: UILabel!
     @IBOutlet weak var caloricBurn: UILabel!
-    @IBOutlet weak var durationMinutes: UILabel!
-    @IBOutlet weak var durationSeconds: UILabel!
+    @IBOutlet weak var durationLbl: UILabel!
     @IBOutlet weak var distance: UILabel!
     @IBOutlet weak var gear: UILabel!
+    @IBOutlet weak var connectBtn: UIButton!
     
-    // Properties
-    private var m3iPeripheral:  CBPeripheral!
+    
+    // Core Bluetooth central manager declaration
     private var centralManager: CBCentralManager!
     
-    // bike struct
-    var bikeName: String?
-    var bikeRSSI : Int = 0
-    var bikePeripheral: CBPeripheral?
-    var bikeUUID : UUID?
+    // bike data
+    var bikeRSSI :          Int = 0         // bluetoot signal strength
+    var bikeName :          String?         // For keiser M3i the name is M3
+    var bikePeripheral:     CBPeripheral?   // data read by CB central manager
+    var bikeUUID :          UUID?           // bluetooth UUID for the bike (unique for each bike)
     
-    // 
     
+    // app connected to bike
+    var isConnected  = false
+    
+    
+    //----------------------------------------------------------------------------
+    // View did load
+    //----------------------------------------------------------------------------
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Init bluetooth central manager
         centralManager = CBCentralManager(delegate: self, queue: nil)
     }
+    
+    
+    @IBAction func connectBtnPressed(_ sender: Any) {
+        if isConnected {
+            connectBtn.setTitle("Connect",for: .normal)
+        } else {
+            connectBtn.setTitle("Disconnect",for: .normal)
+        }
+        isConnected = !isConnected
+    
+    }
+    
 }
+
+
+//----------------------------------------------------------------------------
+// MARK -- Central manager delegate
+//----------------------------------------------------------------------------
 
 extension ViewController: CBCentralManagerDelegate {
     
+    //----------------------------------------------------------------------------
+    // Scan for BLE peripherals when central manager is poweredOn
+    //----------------------------------------------------------------------------
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         
         switch central.state {
@@ -71,14 +102,15 @@ extension ViewController: CBCentralManagerDelegate {
                 print("central.state is .poweredOff")
               case .poweredOn:
                 print("central.state is .poweredOn")
-
                 centralManager.scanForPeripherals(withServices: nil)
         @unknown default:
             print("central.state is fatal error")
         }
-
     }
     
+    //----------------------------------------------------------------------------
+    //  Read advertisments data from peripheral
+    //----------------------------------------------------------------------------
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         
         // We only care about the M3 peripherals
@@ -95,27 +127,39 @@ extension ViewController: CBCentralManagerDelegate {
         // now that we know that there is a manufacturerData we read it
         let manufacturerData = advertisementData[CBAdvertisementDataManufacturerDataKey]!
         
-        let keiserM3iDataBroadcast = KeiserM3iDataBroadcast(manufactureData: manufacturerData as! Data)
+        // parser manufacturer Data
+        let keiserM3iData = KeiserM3iDataParser(manufactureData: manufacturerData as! Data)
         
-        bikeId.text = String(keiserM3iDataBroadcast.ordinalId)
-        cadence.text = String(keiserM3iDataBroadcast.cadence!)
-        heartRate.text = String(keiserM3iDataBroadcast.heartRate!)
-        power.text = String(keiserM3iDataBroadcast.power!)
-        caloricBurn.text = String(keiserM3iDataBroadcast.caloricBurn!)
-        durationMinutes.text = String(keiserM3iDataBroadcast.duration!)
-        durationSeconds.text = String(keiserM3iDataBroadcast.duration!)
-        distance.text = String(keiserM3iDataBroadcast.tripDistance!)
-        gear.text = String(keiserM3iDataBroadcast.gear!)
-       
+        //connectBtn.titleLabel?.text = String(keiserM3iData.equipmentID)
+        print(isConnected)
+        if isConnected {
         
-        bikeRSSI = RSSI.intValue
-        bikeName = peripheral.name
-        bikePeripheral = peripheral
-        bikeUUID = peripheral.identifier
-        
+            // Update data on screen
+            bikeId.text = String(keiserM3iData.equipmentID)
+            cadence.text = String(keiserM3iData.cadence!)
+            heartRate.text = String(keiserM3iData.heartRate!)
+            power.text = String(keiserM3iData.power!)
+            caloricBurn.text = String(keiserM3iData.caloricBurn!)
+            distance.text = String(keiserM3iData.tripDistance!)
+            gear.text = String(keiserM3iData.gear!)
+         
+            
+            var duration = ""
+            
 
-            print("=============================")
-            print(manufacturerData)
+            
+            duration = String(format:"%.0f",keiserM3iData.duration! / 60) + ":" + String(format:"%.0f",keiserM3iData.duration!.truncatingRemainder(dividingBy: 60) )
+            
+            durationLbl.text = duration
+
+            
+            bikeRSSI = RSSI.intValue
+            bikeName = peripheral.name
+            bikePeripheral = peripheral
+            bikeUUID = peripheral.identifier
+         
+           
+        }
     }
 }
 
