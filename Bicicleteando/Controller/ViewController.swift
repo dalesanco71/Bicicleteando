@@ -28,7 +28,6 @@ import CoreBluetooth
 class ViewController: UIViewController {
 
     // Outlets
-    @IBOutlet weak var bikeId: UILabel!
     @IBOutlet weak var cadence: UILabel!
     @IBOutlet weak var heartRate: UILabel!
     @IBOutlet weak var power: UILabel!
@@ -67,9 +66,9 @@ class ViewController: UIViewController {
     
     @IBAction func connectBtnPressed(_ sender: Any) {
         if isConnected {
-            connectBtn.setTitle("Connect",for: .normal)
+            connectBtn.backgroundColor = .red
         } else {
-            connectBtn.setTitle("Disconnect",for: .normal)
+            connectBtn.backgroundColor = .green
         }
         isConnected = !isConnected
     
@@ -131,24 +130,19 @@ extension ViewController: CBCentralManagerDelegate {
         let keiserM3iData = KeiserM3iDataParser(manufactureData: manufacturerData as! Data)
         
         //connectBtn.titleLabel?.text = String(keiserM3iData.equipmentID)
-        print(isConnected)
         if isConnected {
         
             // Update data on screen
-            bikeId.text = String(keiserM3iData.equipmentID)
             cadence.text = String(keiserM3iData.cadence!)
             heartRate.text = String(keiserM3iData.heartRate!)
             power.text = String(keiserM3iData.power!)
             caloricBurn.text = String(keiserM3iData.caloricBurn!)
-            distance.text = String(keiserM3iData.tripDistance!)
+            distance.text = String(format:"%.1f",keiserM3iData.tripDistance!)
             gear.text = String(keiserM3iData.gear!)
          
             
-            var duration = ""
             
-
-            
-            duration = String(format:"%.0f",keiserM3iData.duration! / 60) + ":" + String(format:"%.0f",keiserM3iData.duration!.truncatingRemainder(dividingBy: 60) )
+            let duration = String(format:"%02.0f",keiserM3iData.duration! / 60) + ":" + String(format:"%02.0f",keiserM3iData.duration!.truncatingRemainder(dividingBy: 60) )
             
             durationLbl.text = duration
 
