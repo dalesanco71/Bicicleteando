@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSHealthShareUsageDescription</key>
+	<string>App uses healthkit to read the heart rate </string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>App uses healthkit to read the heart rate </string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>App uses bluetooth to receive data from Keiser M3i bike</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>

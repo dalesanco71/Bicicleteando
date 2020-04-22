@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		518902AA2450393D0073153E /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 518902A92450393D0073153E /* HealthKit.framework */; };
+		518902AC24503B2F0073153E /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518902AB24503B2F0073153E /* HealthKitManager.swift */; };
+		518902B0245047960073153E /* GetMostRecentHealtKitSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518902AF245047960073153E /* GetMostRecentHealtKitSample.swift */; };
 		51CDA506244D902500A0EE2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CDA505244D902500A0EE2B /* AppDelegate.swift */; };
 		51CDA508244D902500A0EE2B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CDA507244D902500A0EE2B /* SceneDelegate.swift */; };
 		51CDA50A244D902500A0EE2B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CDA509244D902500A0EE2B /* ViewController.swift */; };
@@ -17,6 +20,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		518902A72450393D0073153E /* Bicicleteando.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Bicicleteando.entitlements; sourceTree = "<group>"; };
+		518902A92450393D0073153E /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		518902AB24503B2F0073153E /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
+		518902AF245047960073153E /* GetMostRecentHealtKitSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMostRecentHealtKitSample.swift; sourceTree = "<group>"; };
 		51CDA502244D902500A0EE2B /* Bicicleteando.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bicicleteando.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		51CDA505244D902500A0EE2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		51CDA507244D902500A0EE2B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -33,17 +40,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				518902AA2450393D0073153E /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		518902A82450393D0073153E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				518902A92450393D0073153E /* HealthKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		51CDA4F9244D902500A0EE2B = {
 			isa = PBXGroup;
 			children = (
 				51CDA504244D902500A0EE2B /* Bicicleteando */,
 				51CDA503244D902500A0EE2B /* Products */,
+				518902A82450393D0073153E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,6 +75,7 @@
 		51CDA504244D902500A0EE2B /* Bicicleteando */ = {
 			isa = PBXGroup;
 			children = (
+				518902A72450393D0073153E /* Bicicleteando.entitlements */,
 				51CDA51C244D94E400A0EE2B /* Controller */,
 				51CDA519244D91AF00A0EE2B /* Models */,
 				51CDA505244D902500A0EE2B /* AppDelegate.swift */,
@@ -82,6 +100,8 @@
 			isa = PBXGroup;
 			children = (
 				51CDA509244D902500A0EE2B /* ViewController.swift */,
+				518902AB24503B2F0073153E /* HealthKitManager.swift */,
+				518902AF245047960073153E /* GetMostRecentHealtKitSample.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -157,8 +177,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				518902B0245047960073153E /* GetMostRecentHealtKitSample.swift in Sources */,
 				51CDA50A244D902500A0EE2B /* ViewController.swift in Sources */,
 				51CDA506244D902500A0EE2B /* AppDelegate.swift in Sources */,
+				518902AC24503B2F0073153E /* HealthKitManager.swift in Sources */,
 				51CDA508244D902500A0EE2B /* SceneDelegate.swift in Sources */,
 				51CDA51E244D94FA00A0EE2B /* KeiserM3iParser.swift in Sources */,
 			);
@@ -304,6 +326,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Bicicleteando/Bicicleteando.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S254UA97UZ;
 				INFOPLIST_FILE = Bicicleteando/Info.plist;
@@ -322,6 +345,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Bicicleteando/Bicicleteando.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S254UA97UZ;
 				INFOPLIST_FILE = Bicicleteando/Info.plist;

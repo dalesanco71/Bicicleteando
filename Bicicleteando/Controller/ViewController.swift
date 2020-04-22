@@ -20,6 +20,7 @@
 
 import UIKit
 import CoreBluetooth
+import HealthKit
 
 //----------------------------------------------------------------------------
 // MARK -- View controller
@@ -47,7 +48,6 @@ class ViewController: UIViewController {
     var bikePeripheral:     CBPeripheral?   // data read by CB central manager
     var bikeUUID :          UUID?           // bluetooth UUID for the bike (unique for each bike)
     
-    
     // app connected to bike
     var isConnected  = false
     
@@ -59,10 +59,37 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // get health kit authorization
+        
+        
+        
+        HealthKitManager.authorizeHealthKit()
+        
         // Init bluetooth central manager
         centralManager = CBCentralManager(delegate: self, queue: nil)
     }
     
+    //----------------------------------------------------------------------------
+    // MARK -- getHeartRate method
+    //----------------------------------------------------------------------------
+    public func getHeartRate(){
+        
+        guard let heartRateSampleType = HKSampleType.quantityType(forIdentifier: .heartRate) else {
+          print("Heart Rate Sample Type is no longer available in HealthKit")
+          return
+        }
+        
+        getMostRecentSample(for: heartRateSampleType) { (sample, error) in
+          
+            guard let sample = sample else {
+                print("error getting heart rate sample")
+                return
+            }
+       
+            self.heartRate.text = String(format:"%02.0f",sample.quantity.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute()))) + " bpm"
+            
+        }
+    }
     
     @IBAction func connectBtnPressed(_ sender: Any) {
         if isConnected {
@@ -71,10 +98,10 @@ class ViewController: UIViewController {
             connectBtn.backgroundColor = .green
         }
         isConnected = !isConnected
-    
     }
-    
 }
+
+
 
 
 //----------------------------------------------------------------------------
@@ -133,14 +160,13 @@ extension ViewController: CBCentralManagerDelegate {
         if isConnected {
         
             // Update data on screen
-            cadence.text = String(keiserM3iData.cadence!)
-            heartRate.text = String(keiserM3iData.heartRate!)
-            power.text = String(keiserM3iData.power!)
-            caloricBurn.text = String(keiserM3iData.caloricBurn!)
-            distance.text = String(format:"%.1f",keiserM3iData.tripDistance!)
+            cadence.text = String(keiserM3iData.cadence!) + " rpm"
+            power.text = String(keiserM3iData.power!) + " W"
+            caloricBurn.text = String(keiserM3iData.caloricBurn!) + " kCal"
+            distance.text = String(format:"%.1f",keiserM3iData.tripDistance!) + " Km"
             gear.text = String(keiserM3iData.gear!)
          
-            
+            getHeartRate()
             
             let duration = String(format:"%02.0f",keiserM3iData.duration! / 60) + ":" + String(format:"%02.0f",keiserM3iData.duration!.truncatingRemainder(dividingBy: 60) )
             
