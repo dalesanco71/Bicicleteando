@@ -36,17 +36,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var durationLbl: UILabel!
     @IBOutlet weak var distance: UILabel!
     @IBOutlet weak var gear: UILabel!
-    @IBOutlet weak var connectBtn: UIButton!
-    
+    @IBOutlet weak var connectBtn: UIBarButtonItem!
     
     // Core Bluetooth central manager declaration
     private var centralManager: CBCentralManager!
     
     // bike data
-    var bikeRSSI :          Int = 0         // bluetoot signal strength
-    var bikeName :          String?         // For keiser M3i the name is M3
-    var bikePeripheral:     CBPeripheral?   // data read by CB central manager
-    var bikeUUID :          UUID?           // bluetooth UUID for the bike (unique for each bike)
+    var bike : Bike?
+    
     
     // app connected to bike
     var isConnected  = false
@@ -59,15 +56,18 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // check bike is correctly selected
+        if let bikeUserId = bike?.bikeUserID {
+            print(bikeUserId)
+        }
+        
         // get health kit authorization
-        
-        
-        
         HealthKitManager.authorizeHealthKit()
         
         // Init bluetooth central manager
         centralManager = CBCentralManager(delegate: self, queue: nil)
     }
+    
     
     //----------------------------------------------------------------------------
     // MARK -- getHeartRate method
@@ -91,14 +91,19 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func connectBtnPressed(_ sender: Any) {
+    //----------------------------------------------------------------------------
+    // MARK -- start/stop button action
+    //----------------------------------------------------------------------------
+    
+    @IBAction func connectBtnPressed(_ sender: UIBarButtonItem) {
         if isConnected {
-            connectBtn.backgroundColor = .red
+            connectBtn.title = "Start"
         } else {
-            connectBtn.backgroundColor = .green
+            connectBtn.title = "Pause"
         }
         isConnected = !isConnected
     }
+    
 }
 
 
@@ -173,10 +178,7 @@ extension ViewController: CBCentralManagerDelegate {
             durationLbl.text = duration
 
             
-            bikeRSSI = RSSI.intValue
-            bikeName = peripheral.name
-            bikePeripheral = peripheral
-            bikeUUID = peripheral.identifier
+
          
            
         }

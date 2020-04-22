@@ -10,6 +10,9 @@
 		518902AA2450393D0073153E /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 518902A92450393D0073153E /* HealthKit.framework */; };
 		518902AC24503B2F0073153E /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518902AB24503B2F0073153E /* HealthKitManager.swift */; };
 		518902B0245047960073153E /* GetMostRecentHealtKitSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518902AF245047960073153E /* GetMostRecentHealtKitSample.swift */; };
+		518902B2245094AD0073153E /* Bike.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518902B1245094AD0073153E /* Bike.swift */; };
+		518902B4245095A10073153E /* BikeConnectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518902B3245095A10073153E /* BikeConnectionVC.swift */; };
+		518902B6245099F50073153E /* BikeTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518902B5245099F50073153E /* BikeTVC.swift */; };
 		51CDA506244D902500A0EE2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CDA505244D902500A0EE2B /* AppDelegate.swift */; };
 		51CDA508244D902500A0EE2B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CDA507244D902500A0EE2B /* SceneDelegate.swift */; };
 		51CDA50A244D902500A0EE2B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CDA509244D902500A0EE2B /* ViewController.swift */; };
@@ -24,6 +27,9 @@
 		518902A92450393D0073153E /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		518902AB24503B2F0073153E /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		518902AF245047960073153E /* GetMostRecentHealtKitSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMostRecentHealtKitSample.swift; sourceTree = "<group>"; };
+		518902B1245094AD0073153E /* Bike.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bike.swift; sourceTree = "<group>"; };
+		518902B3245095A10073153E /* BikeConnectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeConnectionVC.swift; sourceTree = "<group>"; };
+		518902B5245099F50073153E /* BikeTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeTVC.swift; sourceTree = "<group>"; };
 		51CDA502244D902500A0EE2B /* Bicicleteando.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bicicleteando.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		51CDA505244D902500A0EE2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		51CDA507244D902500A0EE2B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -92,6 +98,8 @@
 			isa = PBXGroup;
 			children = (
 				51CDA51D244D94FA00A0EE2B /* KeiserM3iParser.swift */,
+				518902B1245094AD0073153E /* Bike.swift */,
+				518902B5245099F50073153E /* BikeTVC.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -100,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				51CDA509244D902500A0EE2B /* ViewController.swift */,
+				518902B3245095A10073153E /* BikeConnectionVC.swift */,
 				518902AB24503B2F0073153E /* HealthKitManager.swift */,
 				518902AF245047960073153E /* GetMostRecentHealtKitSample.swift */,
 			);
@@ -178,9 +187,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				518902B0245047960073153E /* GetMostRecentHealtKitSample.swift in Sources */,
+				518902B6245099F50073153E /* BikeTVC.swift in Sources */,
 				51CDA50A244D902500A0EE2B /* ViewController.swift in Sources */,
 				51CDA506244D902500A0EE2B /* AppDelegate.swift in Sources */,
+				518902B2245094AD0073153E /* Bike.swift in Sources */,
 				518902AC24503B2F0073153E /* HealthKitManager.swift in Sources */,
+				518902B4245095A10073153E /* BikeConnectionVC.swift in Sources */,
 				51CDA508244D902500A0EE2B /* SceneDelegate.swift in Sources */,
 				51CDA51E244D94FA00A0EE2B /* KeiserM3iParser.swift in Sources */,
 			);
