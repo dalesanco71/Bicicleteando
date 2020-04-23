@@ -28,7 +28,7 @@ class BikeConnectionVC: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)  {
       if segue.identifier == "bikeSelectedSegue",
-         let vc = segue.destination as? ViewController {
+         let vc = segue.destination as? WorkoutVC {
             vc.bike = bikes[selectedBike]
       }
     }

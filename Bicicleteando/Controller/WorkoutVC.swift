@@ -14,7 +14,7 @@
 // The advertisement packet is transmmited every 318.75 miliseconds
 
 // Note3: communication between Keiser M3i and IOS
-//iOS SDK versions 5.0 and greater supports Bluetooth Smart. Due to the energy management built into the Core Bluetooth API, running a continuous scan will often result in intermittent reception of data. The best approach for working with iOS is to toggle the scan after the receipt of a packet from the targeted equipment, or on a regular interval when receiving from multiple pieces of equipment.
+// iOS SDK versions 5.0 and greater supports Bluetooth Smart. Due to the energy management built into the Core Bluetooth API, running a continuous scan will often result in intermittent reception of data. The best approach for working with iOS is to toggle the scan after the receipt of a packet from the targeted equipment, or on a regular interval when receiving from multiple pieces of equipment.
 
 
 
@@ -26,7 +26,7 @@ import HealthKit
 // MARK -- View controller
 //----------------------------------------------------------------------------
 
-class ViewController: UIViewController {
+class WorkoutVC: UIViewController {
 
     // Outlets
     @IBOutlet weak var cadence: UILabel!
@@ -79,8 +79,8 @@ class ViewController: UIViewController {
           return
         }
         
-        getMostRecentSample(for: heartRateSampleType) { (sample, error) in
-          
+        HealthKitManager.getMostRecentSample(for: heartRateSampleType) { (sample, error) in
+        
             guard let sample = sample else {
                 print("error getting heart rate sample")
                 return
@@ -113,7 +113,7 @@ class ViewController: UIViewController {
 // MARK -- Central manager delegate
 //----------------------------------------------------------------------------
 
-extension ViewController: CBCentralManagerDelegate {
+extension WorkoutVC: CBCentralManagerDelegate {
     
     //----------------------------------------------------------------------------
     // Scan for BLE peripherals when central manager is poweredOn
