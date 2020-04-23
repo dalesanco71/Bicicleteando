@@ -44,10 +44,8 @@ class WorkoutVC: UIViewController {
     // bike data
     var bike : Bike?
     
-    
-    // app connected to bike
-    var isConnected  = false
-    
+    // workout in on progress (can be paused)
+    var workoutOnProgress  = false
     
     //----------------------------------------------------------------------------
     // View did load
@@ -55,11 +53,6 @@ class WorkoutVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // check bike is correctly selected
-        if let bikeUserId = bike?.bikeUserID {
-            print(bikeUserId)
-        }
         
         // get health kit authorization
         HealthKitManager.authorizeHealthKit()
@@ -92,22 +85,22 @@ class WorkoutVC: UIViewController {
     }
     
     //----------------------------------------------------------------------------
-    // MARK -- start/stop button action
+    // MARK -- start/pause and finish buttons action
     //----------------------------------------------------------------------------
     
     @IBAction func connectBtnPressed(_ sender: UIBarButtonItem) {
-        if isConnected {
+        if workoutOnProgress {
             connectBtn.title = "Start"
         } else {
             connectBtn.title = "Pause"
         }
-        isConnected = !isConnected
+        workoutOnProgress = !workoutOnProgress
     }
     
+    @IBAction func finishBtnPressed(_ sender: Any) {
+        centralManager.stopScan()
+    }
 }
-
-
-
 
 //----------------------------------------------------------------------------
 // MARK -- Central manager delegate
@@ -162,7 +155,7 @@ extension WorkoutVC: CBCentralManagerDelegate {
         let keiserM3iData = KeiserM3iDataParser(manufactureData: manufacturerData as! Data)
         
         //connectBtn.titleLabel?.text = String(keiserM3iData.equipmentID)
-        if isConnected {
+        if workoutOnProgress {
         
             // Update data on screen
             cadence.text = String(keiserM3iData.cadence!) + " rpm"
@@ -177,10 +170,6 @@ extension WorkoutVC: CBCentralManagerDelegate {
             
             durationLbl.text = duration
 
-            
-
-         
-           
         }
     }
 }

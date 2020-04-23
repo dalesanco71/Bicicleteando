@@ -9,12 +9,11 @@
 import Foundation
 
 public class KeiserM3iDataParser: NSObject {
-//    public var name = ""
-//    public var address = ""
+
     public var versionMayor: Int?
     public var versionMinor: Int?
     public var dataType: Int?
-    public var equipmentID: Int = 0
+    public var equipmentID: Int = -1
     public var cadence: Int?
     public var heartRate: Int?
     public var power: Int?
@@ -25,7 +24,6 @@ public class KeiserM3iDataParser: NSObject {
     
     public var interval: Int?
     public var realTime = false
-    
     
     // parseamos los datos recibidos via broadcast
     // eliminamos los dos primeros bytes "prefix bits"
@@ -97,21 +95,4 @@ public class KeiserM3iDataParser: NSObject {
         }
     }
     
-/*=================================================================
-    // Don't know what is this method for
-
-    public var scanResult: String {
-        get {
-            return "scanResult"
-        }
-    }
-    
-    // Don't know what is this method for
-     public var isValid: Bool {
-        get {
-            return name.count > 0 && equipmentID > 0
-        }
-    }
-    
-    //============================================================*/
 }

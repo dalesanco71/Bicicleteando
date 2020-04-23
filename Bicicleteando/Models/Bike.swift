@@ -11,6 +11,6 @@ import Foundation
 struct Bike {
     var bikeUserID   : String
     var bikeName     : String
-    //let bikeUUID : UUID
+    var bikeUUID     : UUID
     
 }
