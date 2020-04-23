@@ -46,7 +46,9 @@ class WorkoutVC: UIViewController {
     
     // workout in on progress (can be paused)
     var workoutOnProgress  = false
-    
+    var numberOfWorkoutDataSamples : Double = 0
+    var timer = Timer()
+
     //----------------------------------------------------------------------------
     // View did load
     //----------------------------------------------------------------------------
@@ -60,7 +62,6 @@ class WorkoutVC: UIViewController {
         // Init bluetooth central manager
         centralManager = CBCentralManager(delegate: self, queue: nil)
     }
-    
     
     //----------------------------------------------------------------------------
     // MARK -- getHeartRate method
@@ -80,7 +81,6 @@ class WorkoutVC: UIViewController {
             }
        
             self.heartRate.text = String(format:"%02.0f",sample.quantity.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute()))) + " bpm"
-            
         }
     }
     
@@ -89,16 +89,35 @@ class WorkoutVC: UIViewController {
     //----------------------------------------------------------------------------
     
     @IBAction func connectBtnPressed(_ sender: UIBarButtonItem) {
+        // pause button pressed
         if workoutOnProgress {
             connectBtn.title = "Start"
+            timer.invalidate()
+            
+        // start button pressed
         } else {
             connectBtn.title = "Pause"
+            timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(scheduleBLEPeripheralScan), userInfo: nil, repeats: true)
         }
         workoutOnProgress = !workoutOnProgress
     }
     
+    // while we are cycling the timer run this function each second.
+    // this function scan BLE peripherals
+    // the scanning is stopped when a valid sample is found
+    @objc func scheduleBLEPeripheralScan()
+    {
+        // Update workout duration (add one second)
+        let duration = String(format:"%02.0f",numberOfWorkoutDataSamples / 60) + ":" + String(format:"%02.0f",numberOfWorkoutDataSamples.truncatingRemainder(dividingBy: 60) )
+
+        durationLbl.text = duration
+        numberOfWorkoutDataSamples = numberOfWorkoutDataSamples + 1
+        
+        centralManager.scanForPeripherals(withServices: nil)
+    }
+    
     @IBAction func finishBtnPressed(_ sender: Any) {
-        centralManager.stopScan()
+        //centralManager.stopScan()
     }
 }
 
@@ -156,7 +175,7 @@ extension WorkoutVC: CBCentralManagerDelegate {
         
         //connectBtn.titleLabel?.text = String(keiserM3iData.equipmentID)
         if workoutOnProgress {
-        
+                    
             // Update data on screen
             cadence.text = String(keiserM3iData.cadence!) + " rpm"
             power.text = String(keiserM3iData.power!) + " W"
@@ -165,12 +184,10 @@ extension WorkoutVC: CBCentralManagerDelegate {
             gear.text = String(keiserM3iData.gear!)
          
             getHeartRate()
-            
-            let duration = String(format:"%02.0f",keiserM3iData.duration! / 60) + ":" + String(format:"%02.0f",keiserM3iData.duration!.truncatingRemainder(dividingBy: 60) )
-            
-            durationLbl.text = duration
-
+        
         }
+        
+        centralManager.stopScan()
     }
 }
 
