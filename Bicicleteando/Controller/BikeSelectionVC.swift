@@ -159,7 +159,7 @@ extension BikeSelectionVC: CBCentralManagerDelegate {
         let manufacturerData = advertisementData[CBAdvertisementDataManufacturerDataKey]!
         
         // parser manufacturer Data
-        let keiserM3iData = KeiserM3iDataParser(manufactureData: manufacturerData as! Data)
+        let keiserM3iData = WorkoutSampleData(manufactureData: manufacturerData as! Data)
         
         let bikeUserID = String(keiserM3iData.equipmentID)
         let bikeUUID   = peripheral.identifier

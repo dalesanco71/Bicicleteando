@@ -44,11 +44,14 @@ class WorkoutVC: UIViewController {
     // bike data
     var bike : Bike?
     
-    // workout in on progress (can be paused)
+    // workout on progress (can be paused)
     var workoutOnProgress  = false
     var numberOfWorkoutDataSamples : Double = 0
     var timer = Timer()
 
+    //workout data
+    var workoutData = [WorkoutSampleData]()
+    
     //----------------------------------------------------------------------------
     // View did load
     //----------------------------------------------------------------------------
@@ -107,7 +110,7 @@ class WorkoutVC: UIViewController {
     // the scanning is stopped when a valid sample is found
     @objc func scheduleBLEPeripheralScan()
     {
-        // Update workout duration (add one second)
+        // Update workout duration (add one second for each workout sample)
         let duration = String(format:"%02.0f",numberOfWorkoutDataSamples / 60) + ":" + String(format:"%02.0f",numberOfWorkoutDataSamples.truncatingRemainder(dividingBy: 60) )
 
         durationLbl.text = duration
@@ -117,7 +120,8 @@ class WorkoutVC: UIViewController {
     }
     
     @IBAction func finishBtnPressed(_ sender: Any) {
-        //centralManager.stopScan()
+        print(workoutData.count)
+        print(workoutData)
     }
 }
 
@@ -144,7 +148,7 @@ extension WorkoutVC: CBCentralManagerDelegate {
               case .poweredOff:
                 print("central.state is .poweredOff")
               case .poweredOn:
-                print("central.state is .poweredOn")
+                //print("central.state is .poweredOn")
                 centralManager.scanForPeripherals(withServices: nil)
         @unknown default:
             print("central.state is fatal error")
@@ -171,23 +175,25 @@ extension WorkoutVC: CBCentralManagerDelegate {
         let manufacturerData = advertisementData[CBAdvertisementDataManufacturerDataKey]!
         
         // parser manufacturer Data
-        let keiserM3iData = KeiserM3iDataParser(manufactureData: manufacturerData as! Data)
+        let sampleData = WorkoutSampleData(manufactureData: manufacturerData as! Data)
         
         //connectBtn.titleLabel?.text = String(keiserM3iData.equipmentID)
         if workoutOnProgress {
                     
             // Update data on screen
-            cadence.text = String(keiserM3iData.cadence!) + " rpm"
-            power.text = String(keiserM3iData.power!) + " W"
-            caloricBurn.text = String(keiserM3iData.caloricBurn!) + " kCal"
-            distance.text = String(format:"%.1f",keiserM3iData.tripDistance!) + " Km"
-            gear.text = String(keiserM3iData.gear!)
+            cadence.text = String(sampleData.cadence!) + " rpm"
+            power.text = String(sampleData.power!) + " W"
+            caloricBurn.text = String(sampleData.caloricBurn!) + " kCal"
+            distance.text = String(format:"%.1f",sampleData.tripDistance!) + " Km"
+            gear.text = String(sampleData.gear!)
          
             getHeartRate()
         
         }
         
         centralManager.stopScan()
+        
+        workoutData.append(sampleData)
     }
 }
 
