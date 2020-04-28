@@ -21,6 +21,10 @@
 import UIKit
 import CoreBluetooth
 import HealthKit
+import Charts
+
+// Global constant
+let numberOfSamplesToShow = 300 // five minutes in seconds
 
 //----------------------------------------------------------------------------
 // MARK -- View controller
@@ -38,6 +42,8 @@ class WorkoutVC: UIViewController {
     @IBOutlet weak var gear: UILabel!
     @IBOutlet weak var connectBtn: UIBarButtonItem!
     
+    @IBOutlet weak var lineChartView: LineChartView!
+    
     // Core Bluetooth central manager declaration
     private var centralManager: CBCentralManager!
     
@@ -46,12 +52,13 @@ class WorkoutVC: UIViewController {
     
     // workout on progress (can be paused)
     var workoutOnProgress  = false
-    var numberOfWorkoutDataSamples : Double = 0
+    var numberOfWorkoutDataSamples : Int = 0
     var timer = Timer()
 
     //workout data
     var workoutData = [WorkoutSampleData]()
-    
+    var powerData = Array(repeating: 0.0, count: numberOfSamplesToShow)
+
     //----------------------------------------------------------------------------
     // View did load
     //----------------------------------------------------------------------------
@@ -59,11 +66,25 @@ class WorkoutVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // draw first chart. Timer will update chart every 1 second
+        setChart()
+        
         // get health kit authorization
         HealthKitManager.authorizeHealthKit()
         
         // Init bluetooth central manager
         centralManager = CBCentralManager(delegate: self, queue: nil)
+    }
+    
+    //----------------------------------------------------------------------------
+    // MARK: - Navigation
+    //----------------------------------------------------------------------------
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "workoutToStadisticsSegue",
+           let vc = segue.destination as? WorkoutStadisticsVC {
+              vc.workoutData = workoutData
+        }
     }
     
     //----------------------------------------------------------------------------
@@ -83,7 +104,11 @@ class WorkoutVC: UIViewController {
                 return
             }
        
-            self.heartRate.text = String(format:"%02.0f",sample.quantity.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute()))) + " bpm"
+            let heartRate = sample.quantity.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute()))
+            
+            self.heartRate.text = String(format:"%02.0f",heartRate) + " bpm"
+            
+            self.workoutData.last?.heartRate = Int(heartRate)
         }
     }
     
@@ -105,18 +130,65 @@ class WorkoutVC: UIViewController {
         workoutOnProgress = !workoutOnProgress
     }
     
+    @IBAction func stadisticsBtnPressed(_ sender: Any) {
+        performSegue(withIdentifier: "workoutToStadisticsSegue", sender: AnyObject?.self)
+
+    }
+
     // while we are cycling the timer run this function each second.
     // this function scan BLE peripherals
     // the scanning is stopped when a valid sample is found
     @objc func scheduleBLEPeripheralScan()
     {
-        // Update workout duration (add one second for each workout sample)
-        let duration = String(format:"%02.0f",numberOfWorkoutDataSamples / 60) + ":" + String(format:"%02.0f",numberOfWorkoutDataSamples.truncatingRemainder(dividingBy: 60) )
+        // update line data chart
+        setChart()
 
+        // Update workout duration (add one second for each workout sample)
+        let workoutMinutes = numberOfWorkoutDataSamples / 60
+        let workoutSeconds = numberOfWorkoutDataSamples - (workoutMinutes*60)
+        let duration = String(format:"%02d",workoutMinutes) + ":" + String(format:"%02d",workoutSeconds)
         durationLbl.text = duration
+        workoutData.last?.timeInSeconds = numberOfWorkoutDataSamples
         numberOfWorkoutDataSamples = numberOfWorkoutDataSamples + 1
         
         centralManager.scanForPeripherals(withServices: nil)
+    }
+    
+    //----------------------------------------------------------------------------
+     // MARK -- draw line chart
+     //----------------------------------------------------------------------------
+    
+    @objc func setChart() {
+        if let lastwWorkoutData = workoutData.last {
+            powerData.append(Double(lastwWorkoutData.power!))
+
+        }
+        var dataEntries: [BarChartDataEntry] = []
+
+        for i in 0..<numberOfSamplesToShow-1 {
+            let dataEntry1 = BarChartDataEntry(x: Double(i), y: powerData[powerData.count - numberOfSamplesToShow + i])
+            dataEntries.append(dataEntry1)
+
+        }
+                
+        let chartDataSet = LineChartDataSet(entries: dataEntries, label: "Power")
+        chartDataSet.colors = [UIColor.red]
+        chartDataSet.drawCirclesEnabled = false
+        chartDataSet.lineWidth = 2.0
+        chartDataSet.fillColor = UIColor.orange
+        chartDataSet.drawFilledEnabled = true
+        chartDataSet.drawValuesEnabled = false
+
+        
+        // Draw line limit
+        let ftpLine = ChartLimitLine(limit: 10.0, label: "FTP")
+        lineChartView.rightAxis.addLimitLine(ftpLine)
+        
+        // Show data on screen
+        let chartData = LineChartData(dataSet: chartDataSet)
+        lineChartView.data = chartData
+        lineChartView.xAxis.enabled = false
+        lineChartView.rightAxis.enabled = false
     }
     
     @IBAction func finishBtnPressed(_ sender: Any) {

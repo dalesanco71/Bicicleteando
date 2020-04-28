@@ -39,7 +39,6 @@ class BikeSelectionVC: UIViewController {
         tableView.dataSource = self
         tableView.delegate   = self
         
-        
     }
     
     //----------------------------------------------------------------------------

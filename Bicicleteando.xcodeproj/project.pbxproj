@@ -20,9 +20,12 @@
 		51CDA50F244D902800A0EE2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51CDA50E244D902800A0EE2B /* Assets.xcassets */; };
 		51CDA512244D902800A0EE2B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51CDA510244D902800A0EE2B /* LaunchScreen.storyboard */; };
 		51CDA51E244D94FA00A0EE2B /* WorkoutSampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CDA51D244D94FA00A0EE2B /* WorkoutSampleData.swift */; };
+		51ED4DD924585E4500AE43CA /* WorkoutStadisticsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51ED4DD824585E4500AE43CA /* WorkoutStadisticsVC.swift */; };
+		924829DF42F35855396392B7 /* libPods-Bicicleteando.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CD51FADE94812712C4A8173 /* libPods-Bicicleteando.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4E3CE5B49A0C7DEE70965100 /* Pods-Bicicleteando.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bicicleteando.release.xcconfig"; path = "Target Support Files/Pods-Bicicleteando/Pods-Bicicleteando.release.xcconfig"; sourceTree = "<group>"; };
 		51852C2C2450BE4D00929FC0 /* ToDo  */ = {isa = PBXFileReference; lastKnownFileType = text; path = "ToDo "; sourceTree = "<group>"; };
 		518902A72450393D0073153E /* Bicicleteando.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Bicicleteando.entitlements; sourceTree = "<group>"; };
 		518902A92450393D0073153E /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
@@ -39,6 +42,9 @@
 		51CDA511244D902800A0EE2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		51CDA513244D902800A0EE2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		51CDA51D244D94FA00A0EE2B /* WorkoutSampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSampleData.swift; sourceTree = "<group>"; };
+		51ED4DD824585E4500AE43CA /* WorkoutStadisticsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutStadisticsVC.swift; sourceTree = "<group>"; };
+		5C42BE631ECA42296CD4428A /* Pods-Bicicleteando.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bicicleteando.debug.xcconfig"; path = "Target Support Files/Pods-Bicicleteando/Pods-Bicicleteando.debug.xcconfig"; sourceTree = "<group>"; };
+		6CD51FADE94812712C4A8173 /* libPods-Bicicleteando.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Bicicleteando.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,12 +53,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				518902AA2450393D0073153E /* HealthKit.framework in Frameworks */,
+				924829DF42F35855396392B7 /* libPods-Bicicleteando.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		322B1ACFA59A5B8F3A327DB8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5C42BE631ECA42296CD4428A /* Pods-Bicicleteando.debug.xcconfig */,
+				4E3CE5B49A0C7DEE70965100 /* Pods-Bicicleteando.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		51852C2E2451763900929FC0 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -77,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				518902A92450393D0073153E /* HealthKit.framework */,
+				6CD51FADE94812712C4A8173 /* libPods-Bicicleteando.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -88,6 +105,7 @@
 				51CDA504244D902500A0EE2B /* Bicicleteando */,
 				51CDA503244D902500A0EE2B /* Products */,
 				518902A82450393D0073153E /* Frameworks */,
+				322B1ACFA59A5B8F3A327DB8 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -127,6 +145,7 @@
 			children = (
 				51CDA509244D902500A0EE2B /* WorkoutVC.swift */,
 				518902B3245095A10073153E /* BikeSelectionVC.swift */,
+				51ED4DD824585E4500AE43CA /* WorkoutStadisticsVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -138,6 +157,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 51CDA516244D902800A0EE2B /* Build configuration list for PBXNativeTarget "Bicicleteando" */;
 			buildPhases = (
+				28C05CBDBAB97D78F9514E32 /* [CP] Check Pods Manifest.lock */,
 				51CDA4FE244D902500A0EE2B /* Sources */,
 				51CDA4FF244D902500A0EE2B /* Frameworks */,
 				51CDA500244D902500A0EE2B /* Resources */,
@@ -198,6 +218,31 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		28C05CBDBAB97D78F9514E32 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Bicicleteando-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		51CDA4FE244D902500A0EE2B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -206,6 +251,7 @@
 				518902B6245099F50073153E /* BikeTVC.swift in Sources */,
 				51CDA50A244D902500A0EE2B /* WorkoutVC.swift in Sources */,
 				51CDA506244D902500A0EE2B /* AppDelegate.swift in Sources */,
+				51ED4DD924585E4500AE43CA /* WorkoutStadisticsVC.swift in Sources */,
 				518902B2245094AD0073153E /* Bike.swift in Sources */,
 				518902AC24503B2F0073153E /* HealthKitManager.swift in Sources */,
 				518902B4245095A10073153E /* BikeSelectionVC.swift in Sources */,
@@ -352,6 +398,7 @@
 		};
 		51CDA517244D902800A0EE2B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5C42BE631ECA42296CD4428A /* Pods-Bicicleteando.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Bicicleteando/Bicicleteando.entitlements;
@@ -371,6 +418,7 @@
 		};
 		51CDA518244D902800A0EE2B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4E3CE5B49A0C7DEE70965100 /* Pods-Bicicleteando.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Bicicleteando/Bicicleteando.entitlements;

@@ -16,7 +16,7 @@ public class WorkoutSampleData: NSObject {
     public var heartRate: Int?
     public var power: Int?
     public var caloricBurn: Int?
-    public var duration: TimeInterval?
+    public var timeInSeconds: Int?
     public var tripDistance: Double?
     public var gear: Int?
         
@@ -42,8 +42,8 @@ public class WorkoutSampleData: NSObject {
             case 6: power = Int(UInt16(byte) << 8 | UInt16(power!))
             case 7: caloricBurn = Int(byte)
             case 8: caloricBurn = Int(UInt16(byte) << 8 | UInt16(caloricBurn!))
-            case 9: duration = Double(byte) * 60
-            case 10: duration = duration! + Double(byte)
+            case 9: timeInSeconds = Int(byte) * 60
+            case 10: timeInSeconds = timeInSeconds! + Int(byte)
             case 11: tempDistance = Int32(byte)
             case 12: tempDistance = Int32(UInt16(byte) << 8 | UInt16(tempDistance!))
             case 13: gear = Int(byte)
